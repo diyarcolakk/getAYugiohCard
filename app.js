@@ -2,23 +2,11 @@ const yuGiOh = "https://db.ygoprodeck.com/api/v7/cardinfo.php";
 const cardContainerShow = document.querySelector(".card-container");
 const imgUrlBul = function (cardinfo) {
   let array = [];
-  let idArr = [];
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < 20; i++) {
     array[i] = cardinfo.data[i].card_images[0].image_url;
   }
 
   return array;
-};
-
-const yugiOhApiUse = function () {
-  fetch(`${yuGiOh}`)
-    .then((respond) => respond.json())
-    .then((cardinfo) => {
-      if (imgUrlBul(cardinfo)) yerlestirme(imgUrlBul(cardinfo));
-      // Array geldi. Bu arrayi divde yerine koy
-      else throw new Error("Card image ulaşılamadı");
-    })
-    .catch((err) => console.warn(err));
 };
 
 function yerlestirme(gelenimgUrl) {
@@ -38,7 +26,27 @@ function yerlestirme(gelenimgUrl) {
   cardContainerShow.insertAdjacentHTML("beforeend", html);
 }
 
-yugiOhApiUse();
+
+
+// const yugiOhApiUse = function () {
+//   fetch(`${yuGiOh}`)
+//     .then((respond) => respond.json())
+//     .then((cardinfo) => {
+//       if (imgUrlBul(cardinfo)) yerlestirme(imgUrlBul(cardinfo));
+//       // Array geldi. Bu arrayi divde yerine koy
+//       else throw new Error("Card image ulaşılamadı");
+//     })
+//     .catch((err) => console.warn(err));
+// };
+
+// Async bir fonksiyon sayesinde yukarıdaki ifade aşağıdaki şekle dönüştü
+const yugiOhApiUse = async function () {
+  const useMyYuGiOh = await fetch(`${yuGiOh}`)
+  const getTheCards = await useMyYuGiOh.json();
+  if (!getTheCards) throw new Error("Hata basıldı.")
+  yerlestirme(imgUrlBul(getTheCards))
+};
+
 
 //Fotoğraflara erişmek için bir yol
 
