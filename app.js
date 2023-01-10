@@ -26,6 +26,14 @@ function yerlestirme(gelenimgUrl) {
   cardContainerShow.insertAdjacentHTML("beforeend", html);
 }
 
+const yugiOhApiUse = async function () {
+  const useMyYuGiOh = await fetch(`${yuGiOh}`)
+  const getTheCards = await useMyYuGiOh.json();
+  if (!getTheCards) throw new Error("Hata basıldı.")
+  yerlestirme(imgUrlBul(getTheCards))
+};
+yugiOhApiUse();
+
 
 
 // const yugiOhApiUse = function () {
@@ -40,14 +48,6 @@ function yerlestirme(gelenimgUrl) {
 // };
 
 // Async bir fonksiyon sayesinde yukarıdaki ifade aşağıdaki şekle dönüştü
-const yugiOhApiUse = async function () {
-  const useMyYuGiOh = await fetch(`${yuGiOh}`)
-  const getTheCards = await useMyYuGiOh.json();
-  if (!getTheCards) throw new Error("Hata basıldı.")
-  yerlestirme(imgUrlBul(getTheCards))
-};
-
-yugiOhApiUse();
 
 
 //Fotoğraflara erişmek için bir yol
