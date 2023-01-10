@@ -47,6 +47,8 @@ const yugiOhApiUse = async function () {
   yerlestirme(imgUrlBul(getTheCards))
 };
 
+yugiOhApiUse();
+
 
 //Fotoğraflara erişmek için bir yol
 
